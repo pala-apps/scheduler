@@ -4,43 +4,27 @@ import { connect } from 'react-redux'
 
 const AppContainer = ( { } ) => {
 
+
   const periods = [
-    "14/11/2016", "21/11/2016", "28/11/2016", "05/12/2016"
+    { date: "14/11/2016", positions: [ {name: "JS Teacher"}, {name: "JS Assist"}, {name: "JS Assist"} ] },
+    { date: "21/11/2016", positions: [ {name: "JS Teacher"}, {name: "JS Assist"}, {name: "JS Assist"} ] },
+    { date: "28/11/2016", positions: [ {name: "JS Teacher"}, {name: "JS Assist"}, {name: "JS Assist"} ] }
   ]
 
-  const departments = [
-    { name: "Cohort 7",
-      periods: [1,1,1,1]
-    },
-    { name: "Cohort 8",
-      periods: [2,2,2,1]
-    }
-  ]
-
-  const teams = {
-    1: { name:"Java" },
-    2: { name:"JS" }
-  }
-
-  const headers = periods.map( periodString => <div key={periodString}> { periodString } </div> )
-
-  const rows = departments.map( (department) =>{
-    const periodItems = department.periods.map( teamId => <div> { teams[teamId].name } </div> )
+  const columns = periods.map( ( period ) =>{
+    const positionCells = period.positions.map( position => <div> {position.name} </div> )
     return(
-      <div className="row">
-        <div> { department.name } </div>
-        { periodItems }
+      <div>
+        <div> { period.date } </div>
+        { positionCells }
       </div>
     )
   })
 
+
   return(
     <div className="calendar">
-      <div className="row">
-        <div className="empty-cell"></div>
-        { headers }
-      </div>
-      { rows }
+      { columns }
     </div>
   )
 }
