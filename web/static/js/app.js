@@ -19,13 +19,11 @@ import { createStore, applyMiddleware } from 'redux';
 
 // Import local files
 import AppContainer from './components/AppContainer';
+import reducer from './reducers/index'
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-const reducer = function(state = {}, action){
-  return state
-}
 
 const store = createStore( reducer, window.devToolsExtension && window.devToolsExtension() );
 

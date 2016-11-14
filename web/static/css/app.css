@@ -1,1 +1,6 @@
 /* This file is for your main application css. */
+
+.l-flex{
+  display: flex;
+  justify-content: space-around;
+}
