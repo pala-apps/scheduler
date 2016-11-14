@@ -17,7 +17,7 @@ const AppContainer = ( { calendar, positions } ) => {
 
   const columns = periods.map( ( period ) =>{
     const positionCells = period.positions.map( position => <div key={position.id}> {position.name} </div> )
-    const dateString = period.date.format('YYYY/MM/DD')
+    const dateString = period.date.format('YYYY/MM/DD HH MM')
     return(
       <div key={ dateString }>
         <div> { dateString } </div>
