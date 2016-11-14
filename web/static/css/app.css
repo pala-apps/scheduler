@@ -1,6 +1,14 @@
 /* This file is for your main application css. */
-
-.l-flex{
+.calendar{
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+}
+
+.row{
+  display: flex;
+  justify-content: space-between;
+}
+
+.row div{
+  flex: 1;
 }
