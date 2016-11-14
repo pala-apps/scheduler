@@ -1,21 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
+import {_} from 'lodash'
 
 
-const AppContainer = ( { } ) => {
+const AppContainer = ( { calendar, positions } ) => {
+  const startPoint = moment( calendar.startTime )
 
-
-  const periods = [
-    { date: "14/11/2016", positions: [ {name: "JS Teacher"}, {name: "JS Assist"}, {name: "JS Assist"} ] },
-    { date: "21/11/2016", positions: [ {name: "JS Teacher"}, {name: "JS Assist"}, {name: "JS Assist"} ] },
-    { date: "28/11/2016", positions: [ {name: "JS Teacher"}, {name: "JS Assist"}, {name: "JS Assist"} ] }
-  ]
+  const periods = _.range( calendar.numberOfUnits ).map( (unitAfterStart) => {
+    const date = startPoint.clone().add( unitAfterStart, calendar.timeUnit )
+    const periodPositions = positions.filter( (position) => {
+      return date.isBetween(position.start, position.end, null, []);
+    })
+    return {date: date, positions: periodPositions}
+  })
 
   const columns = periods.map( ( period ) =>{
-    const positionCells = period.positions.map( position => <div> {position.name} </div> )
+    const positionCells = period.positions.map( position => <div key={position.id}> {position.name} </div> )
+    const dateString = period.date.format('YYYY/MM/DD')
     return(
-      <div>
-        <div> { period.date } </div>
+      <div key={ dateString }>
+        <div> { dateString } </div>
         { positionCells }
       </div>
     )
