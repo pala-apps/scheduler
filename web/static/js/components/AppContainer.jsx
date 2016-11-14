@@ -22,29 +22,22 @@ const AppContainer = ( { } ) => {
     2: { name:"JS" }
   }
 
-  //
-  // const periods = [
-  //   {
-  //     date: "14/11/2015",
-  //     departments;
-  //   }
-  // ]
-
   const headers = periods.map( periodString => <div key={periodString}> { periodString } </div> )
 
   const rows = departments.map( (department) =>{
     const periodItems = department.periods.map( teamId => <div> { teams[teamId].name } </div> )
     return(
       <div className="row">
+        <div> { department.name } </div>
         { periodItems }
       </div>
     )
   })
 
-
   return(
     <div className="calendar">
       <div className="row">
+        <div className="empty-cell"></div>
         { headers }
       </div>
       { rows }
