@@ -12,12 +12,12 @@ import "phoenix_html"
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import {Router, Route, IndexRedirect, browserHistory, Redirect} from 'react-router';
+import { Router, Route, IndexRedirect, browserHistory, Redirect } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 
 // Import local files
 import AppContainer from './components/AppContainer';
-import reducer from './reducers/index'
+import reducer from './reducers'
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 

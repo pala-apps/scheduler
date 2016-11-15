@@ -1,5 +1,3 @@
-// import
-
 const intitalState = {
   calendar: {
     timeUnit: "week",
@@ -14,5 +12,13 @@ const intitalState = {
 }
 
 export default function(state = intitalState, action){
-  return state
+
+
+  switch ( action.type ) {
+    case "ADD_POSIITON":
+      const newPositions = state.positions.concat( action.position )
+      return Object.assign( {}, state, { positions: newPositions } )
+    default:
+      return state
+  }
 }
