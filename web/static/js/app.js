@@ -14,8 +14,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {Router, Route, IndexRedirect, browserHistory, Redirect} from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
 
 // Import local files
 import AppContainer from './components/AppContainer';

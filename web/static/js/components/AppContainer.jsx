@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import {_} from 'lodash'
+import PositionForm from './PositionForm'
 
-
-const AppContainer = ( { calendar, positions } ) => {
+const AppContainer = ( { calendar, positions, handleSubmit } ) => {
   const startPoint = moment( calendar.startTime )
 
   const periods = _.range( calendar.numberOfUnits ).map( (unitAfterStart) => {
@@ -15,13 +15,17 @@ const AppContainer = ( { calendar, positions } ) => {
     return {date: date, positions: periodPositions}
   })
 
-  const columns = periods.map( ( period ) =>{
+  const columns = periods.map( ( period, index ) =>{
     const positionCells = period.positions.map( position => <div key={position.id}> {position.name} </div> )
-    const dateString = period.date.format('YYYY/MM/DD HH MM')
+    const dateString = period.date.format('YYYY/MM/DD HH MM');
+
+    let newPositionForm = <PositionForm index={index} />
+
     return(
       <div key={ dateString }>
         <div> { dateString } </div>
         { positionCells }
+        { newPositionForm }
       </div>
     )
   })
