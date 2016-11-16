@@ -36,6 +36,10 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
     return (e) => { dispatch( actions.setTimeUnit( unit ) ) }
   }
 
+  const setCalendarLength = ( length ) => {
+    dispatch( actions.setNumberOfCalendarUnits( length ) )
+  }
+
   const addShift = ( e ) => {
     e.preventDefault();
     let shift = formSerializer( e.target.children )
@@ -94,6 +98,8 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
         showWeeks={ setTimeUnit("week") }
         goBack={ alterStateTime(-1) }
         goForward={ alterStateTime(1) }
+        numberOfUnits={ calendar.numberOfUnits }
+        updateDuration = { setCalendarLength }
         />
       <div className="calendar">
         { columns }

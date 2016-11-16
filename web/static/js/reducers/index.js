@@ -36,6 +36,9 @@ export default function(state = intitalState, action){
       const roundedTime = moment(state.calendar.startTime).startOf(momentUnit).format()
       const calendarNewtime = Object.assign( {}, state.calendar, { timeUnit: action.unit, startTime: roundedTime })
       return Object.assign( {}, state, { calendar: calendarNewtime })
+    case "SET_NUMBER_OF_CALENDAR_UNITS":
+      const calendarWithNewLength= Object.assign( {}, state.calendar, { numberOfUnits: action.length })
+      return Object.assign( {}, state, { calendar: calendarWithNewLength })
     default:
       return state
   }

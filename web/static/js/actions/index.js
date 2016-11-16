@@ -26,6 +26,13 @@ const actions = {
       type: "SET_TIME_UNIT",
       unit
     }
+  },
+
+  setNumberOfCalendarUnits: ( length ) => {
+    return {
+      type: "SET_NUMBER_OF_CALENDAR_UNITS",
+      length
+    }
   }
 
 }
