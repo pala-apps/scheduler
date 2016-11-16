@@ -9,3 +9,16 @@
 .l-flex-4 {
   flex: 4;
 }
+
+.l-flex-align-center {
+  align-items: center;
+}
+
+
+.l-flex-justify-center {
+  justify-content: center;
+}
+
+.l-flex-justify-end {
+  justify-content: flex-end;
+}
