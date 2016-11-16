@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CalendarNav = ( { goBack, goForward, showHours, showDays, showWeeks, startString, endString} ) => {
+const CalendarNav = ( { goBack, goForward, showHours, showDays, showWeeks, userTimeUnit, startString, endString} ) => {
 
   const isActive = ( unit ) => {
     if ( unit === userTimeUnit ) {
