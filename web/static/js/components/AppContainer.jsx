@@ -7,7 +7,7 @@ import ShiftForm from './ShiftForm'
 import RoleForm from './RoleForm'
 import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
-import TimeNav from './TimeNav'
+import CalendarNav from './CalendarNav'
 
 
 function shiftInPeriod(shift, periodStart, periodEnd){
@@ -66,12 +66,13 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
         </div>)
     } )
     const dateString = period.date.format('YYYY-MM-DDTHH:mm');
+    const viewString = period.date.format('DD MMM YYYY');
 
     let newShiftForm = <ShiftForm onSubmit={ addShift } roles={ roles } startDate={ dateString } />
 
     return(
       <div key={ dateString }>
-        <div> { dateString } </div>
+        <div> { viewString } </div>
         { shiftCells }
         { newShiftForm }
         <Link to="/role/new">Add new role</Link>
@@ -79,11 +80,12 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
     )
   })
 
+
   const roleForm = isAddingRole ? <RoleForm onSubmit={ addRole } /> : null;
 
   return(
     <div>
-      <TimeNav
+      <CalendarNav
         showHours={ setTimeUnit("hour") }
         showDays={ setTimeUnit("day") }
         showWeeks={ setTimeUnit("week") }

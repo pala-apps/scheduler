@@ -9,6 +9,7 @@
 
     <title>Hello Scheduler!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" media="screen" title="no title">
   </head>
 
   <body>
