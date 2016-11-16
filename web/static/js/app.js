@@ -29,6 +29,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path='/' component={AppContainer}/>
+      <Route path='/role/new' component={AppContainer}/>
       <Redirect from="*" to="/"/>
     </Router>
   </Provider>,

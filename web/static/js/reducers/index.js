@@ -7,7 +7,7 @@ const intitalState = {
   shifts:[
     {id: 1, roleId: 1, start:"2016-11-14T00:00", end:"2016-12-14T00:00"},
     {id: 2, roleId: 2, start:"2016-11-14T00:00", end:"2016-12-14T00:00"},
-    {id: 3, roleId: 2, start:"2016-11-14T00:00", end:"2016-11-21T00:00"},
+    {id: 3, roleId: 2, start:"2016-11-14T00:00", end:"2016-11-21T00:00"}
   ],
   roles: [
     { id: 1, name: "JS Teacher", duration: 2, timeUnit: "day" },
@@ -19,6 +19,9 @@ export default function(state = intitalState, action){
 
 
   switch ( action.type ) {
+    case "ADD_ROLE":
+      const newRoles = state.roles.concat( action.role );
+      return Object.assign( {}, state, { roles: newRoles } )
     case "ADD_SHIFT":
       const newShifts = state.shifts.concat( action.shift )
       return Object.assign( {}, state, { shifts: newShifts } )

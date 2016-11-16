@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import {_} from 'lodash'
 import ShiftForm from './ShiftForm'
+import RoleForm from './RoleForm'
 import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
 
@@ -11,11 +13,17 @@ function shiftInPeriod(shift, periodStart, periodEnd){
   return periodStart.isBefore( shift.end ) && periodEnd.isAfter( shift.start )
 }
 
-
-const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
+const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => {
 
   const findRoleById = (id) => {
     return roles.find( role => role.id === Number( id ) )
+  }
+
+  const addRole = ( e ) => {
+    e.preventDefault();
+    let role = formSerializer( e.target.children )
+    role = Object.assign( {}, role, { id: roles.length + 1 } )
+    dispatch( actions.addRole( role ) )
   }
 
   const addShift = ( e ) => {
@@ -56,21 +64,29 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
         <div> { dateString } </div>
         { shiftCells }
         { newShiftForm }
+        <Link to="/role/new">Add new role</Link>
       </div>
     )
   })
 
+  const roleForm = isAddingRole ? <RoleForm onSubmit={ addRole } /> : null;
 
   return(
-    <div className="calendar">
-      { columns }
+    <div>
+      <div className="calendar">
+        { columns }
+      </div>
+      <div>
+        { roleForm }
+      </div>
     </div>
   )
 }
 
 const mapStateToProps = (state, {params, location})=>{
-  console.log( "State", state )
-  return state
+  console.log( state, "state" )
+  const isAddingRole = location.pathname === "/role/new"
+  return Object.assign( {}, state, { isAddingRole } )
 }
 
 export default connect( mapStateToProps )( AppContainer )
