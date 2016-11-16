@@ -5,6 +5,8 @@ import {_} from 'lodash'
 import ShiftForm from './ShiftForm'
 import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
+import TimeNav from './TimeNav'
+
 
 function shiftInPeriod(shift, periodStart, periodEnd){
   //Finished after period began and started before period ended
@@ -16,6 +18,10 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
 
   const findRoleById = (id) => {
     return roles.find( role => role.id === Number( id ) )
+  }
+
+  const shiftTimePeriod = ( e ) => {
+    console.log("shiftingtime period")
   }
 
   const addShift = ( e ) => {
@@ -60,10 +66,12 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
     )
   })
 
-
   return(
-    <div className="calendar">
-      { columns }
+    <div>
+      <TimeNav goBack={shiftTimePeriod} goForward={shiftTimePeriod}/>
+      <div className="calendar">
+        { columns }
+      </div>
     </div>
   )
 }

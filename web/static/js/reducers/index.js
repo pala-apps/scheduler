@@ -1,7 +1,7 @@
 const intitalState = {
   calendar: {
     timeUnit: "week",
-    startTime: "2016-11-14T00:00",
+    startTime: "2016-11-12T00:00",
     numberOfUnits: 5
   },
   shifts:[
