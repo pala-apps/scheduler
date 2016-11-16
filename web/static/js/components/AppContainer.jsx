@@ -6,6 +6,11 @@ import PositionForm from './PositionForm'
 import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
 
+function positionInPeriod(position, periodStart, periodEnd){
+  //Finished after period began and started before period ended
+  return periodStart.isBefore( position.end ) && periodEnd.isAfter( position.start )
+}
+
 
 const AppContainer = ( { calendar, positions, dispatch } ) => {
 
@@ -13,17 +18,20 @@ const AppContainer = ( { calendar, positions, dispatch } ) => {
     e.preventDefault();
     console.log( "add position container hit" )
     const position = formSerializer( e.target.children )
+    console.log("position", position)
     dispatch( actions.addPosition( position ) )
   }
 
   const startPoint = moment( calendar.startTime )
 
   const periods = _.range( calendar.numberOfUnits ).map( (unitAfterStart) => {
-    const date = startPoint.clone().add( unitAfterStart, calendar.timeUnit )
+    const periodStart = startPoint.clone().add( unitAfterStart, calendar.timeUnit )
+    const periodEnd = periodStart.clone().add( 1, calendar.timeUnit )
+
     const periodPositions = positions.filter( (position) => {
-      return date.isBetween(position.start, position.end, null, []);
+      return positionInPeriod(position, periodStart, periodEnd)
     })
-    return {date: date, positions: periodPositions}
+    return {date: periodStart, positions: periodPositions}
   })
 
   const columns = periods.map( ( period, index ) =>{

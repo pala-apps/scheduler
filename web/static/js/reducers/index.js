@@ -1,11 +1,11 @@
 const intitalState = {
   calendar: {
-    timeUnit: "week",
+    timeUnit: "day",
     startTime: "2016-11-14 00:00",
-    numberOfUnits: 4
+    numberOfUnits: 7
   },
   positions:[
-    {id: 1, name: "JS Teacher", start:"2016-11-14 00:00", end:"2016-12-14 00:00"},
+    {id: 1, name: "JS Teacher", start:"2016-11-14 09:00", end:"2016-11-18 09:00"},
     {id: 2, name: "JS Assist One", start:"2016-11-14 00:00", end:"2016-12-14 00:00"},
     {id: 3, name: "JS Assist Two", start:"2016-11-14 00:00", end:"2016-11-21 00:00"},
   ]
