@@ -7,6 +7,8 @@ import ShiftForm from './ShiftForm'
 import RoleForm from './RoleForm'
 import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
+import TimeNav from './TimeNav'
+
 
 function shiftInPeriod(shift, periodStart, periodEnd){
   //Finished after period began and started before period ended
@@ -24,6 +26,14 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
     let role = formSerializer( e.target.children )
     role = Object.assign( {}, role, { id: roles.length + 1 } )
     dispatch( actions.addRole( role ) )
+  }
+
+  const alterStateTime = ( change ) => {
+    return (e) => { dispatch( actions.alterStartTime( change ) ) }
+  }
+
+  const setTimeUnit = ( unit ) => {
+    return (e) => { dispatch( actions.setTimeUnit( unit ) ) }
   }
 
   const addShift = ( e ) => {
@@ -73,12 +83,20 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
 
   return(
     <div>
+      <TimeNav
+        showHours={ setTimeUnit("hour") }
+        showDays={ setTimeUnit("day") }
+        showWeeks={ setTimeUnit("week") }
+        goBack={ alterStateTime(-1) }
+        goForward={ alterStateTime(1) }
+        />
       <div className="calendar">
         { columns }
       </div>
       <div>
         { roleForm }
       </div>
+
     </div>
   )
 }
