@@ -19,7 +19,6 @@ const AppContainer = ( { calendar, positions, roles, dispatch } ) => {
     const positionRole = findRoleById( position.roleId )
     const endDateTime = moment( position.start ).add( positionRole.duration, positionRole.timeUnit ).format()
     position = Object.assign( {}, position, { end: endDateTime } )
-    console.log( position )
     dispatch( actions.addPosition( position ) )
   }
 
