@@ -66,7 +66,7 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
         </div>)
     } )
     const dateString = period.date.format('YYYY-MM-DDTHH:mm');
-    const viewString = period.date.format('DD MMM YYYY');
+    const viewString = calendar.timeUnit === "hour" ?  period.date.format( 'HH:mm' ) : period.date.format('DD MMM YYYY');
 
     let newShiftForm = <ShiftForm onSubmit={ addShift } roles={ roles } startDate={ dateString } />
 
@@ -86,6 +86,7 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
   return(
     <div>
       <CalendarNav
+        userTimeUnit={ calendar.timeUnit }
         showHours={ setTimeUnit("hour") }
         showDays={ setTimeUnit("day") }
         showWeeks={ setTimeUnit("week") }
