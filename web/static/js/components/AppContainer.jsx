@@ -47,7 +47,7 @@ const AppContainer = ( { calendar, positions, roles, dispatch } ) => {
           {positionRole.name}
         </div>)
     } )
-    const dateString = period.date.format('YYYY-MM-DDTHH:MM');
+    const dateString = period.date.format('YYYY-MM-DDTHH:mm');
 
     let newPositionForm = <PositionForm onSubmit={ addPosition } roles={ roles } startDate={ dateString } />
 
