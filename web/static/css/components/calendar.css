@@ -20,3 +20,8 @@
 .calendar-cell {
   background-color: blue;
 }
+
+.calendar-shift-active {
+  background-color: blue;
+  position: relative; 
+}
