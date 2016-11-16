@@ -20,12 +20,8 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
     return roles.find( role => role.id === Number( id ) )
   }
 
-  const moveForward = ( e ) => {
-    dispatch( actions.alterStartTime( 1 ) )
-  }
-
-  const moveBack = ( e ) => {
-    dispatch( actions.alterStartTime( -1 ) )
+  const alterStateTime = ( change ) => {
+    return (e) => { dispatch( actions.alterStartTime( change ) ) }
   }
 
   const setTimeUnit = ( unit ) => {
@@ -80,8 +76,8 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
         showHours={ setTimeUnit("hour") }
         showDays={ setTimeUnit("day") }
         showWeeks={ setTimeUnit("week") }
-        goBack={moveBack}
-        goForward={moveForward}
+        goBack={ alterStateTime(-1) }
+        goForward={ alterStateTime(1) }
         />
       <div className="calendar">
         { columns }
