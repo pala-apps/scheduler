@@ -1,7 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router'
 
-const CalendarNav = ( { goBack, goForward, showHours, showDays, showWeeks, userTimeUnit } ) => {
+const CalendarNav = ( { goBack, goForward, showHours, showDays, showWeeks, startString, endString} ) => {
 
   const isActive = ( unit ) => {
     if ( unit === userTimeUnit ) {
@@ -15,7 +14,7 @@ const CalendarNav = ( { goBack, goForward, showHours, showDays, showWeeks, userT
       <div className="l-flex-1 l-flex"></div>
       <div className="l-flex-1 l-flex l-flex-align-center l-flex-justify-center">
         <button onClick={goBack}><i className="fa fa-caret-left" aria-hidden="true"></i></button>
-        <span className="navbar-title-center">12 Nov 2016 - 16 Dec 2016</span>
+        <span className="navbar-title-center">{`${startString} - ${endString}`}</span>
         <button onClick={goForward}><i className="fa fa-caret-right" aria-hidden="true"></i></button>
       </div>
       <div className="l-flex-1 l-flex l-flex-align-center l-flex-justify-end">
