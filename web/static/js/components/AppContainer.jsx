@@ -46,6 +46,7 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
   }
 
   const startPoint = moment( calendar.startTime )
+  const endPoint = startPoint.clone().add( calendar.numberOfUnits, calendar.timeUnit )
 
   const periods = _.range( calendar.numberOfUnits ).map( (unitAfterStart) => {
     const periodStart = startPoint.clone().add( unitAfterStart, calendar.timeUnit )
@@ -86,6 +87,8 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
   return(
     <div>
       <CalendarNav
+        startString={startPoint.format('DD MMM YYYY')}
+        endString={endPoint.format('DD MMM YYYY')}
         showHours={ setTimeUnit("hour") }
         showDays={ setTimeUnit("day") }
         showWeeks={ setTimeUnit("week") }
