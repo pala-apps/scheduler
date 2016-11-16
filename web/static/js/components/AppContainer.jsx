@@ -7,11 +7,10 @@ import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
 
 
-const AppContainer = ( { calendar, positions, dispatch } ) => {
+const AppContainer = ( { calendar, positions, roles, dispatch } ) => {
 
   const addPosition = ( e ) => {
     e.preventDefault();
-    console.log( "add position container hit" )
     const position = formSerializer( e.target.children )
     dispatch( actions.addPosition( position ) )
   }
@@ -27,7 +26,13 @@ const AppContainer = ( { calendar, positions, dispatch } ) => {
   })
 
   const columns = periods.map( ( period, index ) =>{
-    const positionCells = period.positions.map( position => <div key={position.id}> {position.name} </div> )
+    const positionCells = period.positions.map( ( position ) => {
+      const positionRole = roles.find( role => role.id === position.roleId )
+      return (
+        <div key={position.id}>
+          {positionRole.name}
+        </div>)
+    } )
     const dateString = period.date.format('YYYY/MM/DD HH MM');
 
     let newPositionForm = <PositionForm onSubmit={ addPosition } />
