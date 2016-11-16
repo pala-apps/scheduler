@@ -1,9 +1,9 @@
 const actions = {
 
-  addPosition: ( position ) => {
+  addShift: ( shift ) => {
     return {
-      type: "ADD_POSIITON",
-      position
+      type: "ADD_SHIFT",
+      shift
     }
   }
 

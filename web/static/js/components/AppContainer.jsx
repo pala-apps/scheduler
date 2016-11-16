@@ -2,29 +2,29 @@ import React from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import {_} from 'lodash'
-import PositionForm from './PositionForm'
+import ShiftForm from './ShiftForm'
 import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
 
-function positionInPeriod(position, periodStart, periodEnd){
+function shiftInPeriod(shift, periodStart, periodEnd){
   //Finished after period began and started before period ended
-  return periodStart.isBefore( position.end ) && periodEnd.isAfter( position.start )
+  return periodStart.isBefore( shift.end ) && periodEnd.isAfter( shift.start )
 }
 
 
-const AppContainer = ( { calendar, positions, roles, dispatch } ) => {
+const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
 
   const findRoleById = (id) => {
     return roles.find( role => role.id === Number( id ) )
   }
 
-  const addPosition = ( e ) => {
+  const addShift = ( e ) => {
     e.preventDefault();
-    let position = formSerializer( e.target.children )
-    const positionRole = findRoleById( position.roleId )
-    const endDateTime = moment( position.start ).add( positionRole.duration, positionRole.timeUnit ).format()
-    position = Object.assign( {}, position, { end: endDateTime } )
-    dispatch( actions.addPosition( position ) )
+    let shift = formSerializer( e.target.children )
+    const shiftRole = findRoleById( shift.roleId )
+    const endDateTime = moment( shift.start ).add( shiftRole.duration, shiftRole.timeUnit ).format()
+    shift = Object.assign( {}, shift, { end: endDateTime } )
+    dispatch( actions.addShift( shift ) )
   }
 
   const startPoint = moment( calendar.startTime )
@@ -33,29 +33,29 @@ const AppContainer = ( { calendar, positions, roles, dispatch } ) => {
     const periodStart = startPoint.clone().add( unitAfterStart, calendar.timeUnit )
     const periodEnd = periodStart.clone().add( 1, calendar.timeUnit )
 
-    const periodPositions = positions.filter( (position) => {
-      return positionInPeriod(position, periodStart, periodEnd)
+    const periodShifts = shifts.filter( (shift) => {
+      return shiftInPeriod(shift, periodStart, periodEnd)
     })
-    return {date: periodStart, positions: periodPositions}
+    return {date: periodStart, shifts: periodShifts}
   })
 
   const columns = periods.map( ( period, index ) =>{
-    const positionCells = period.positions.map( ( position ) => {
-      const positionRole = findRoleById( position.roleId )
+    const shiftCells = period.shifts.map( ( shift ) => {
+      const shiftRole = findRoleById( shift.roleId )
       return (
-        <div key={position.id}>
-          {positionRole.name}
+        <div key={shift.id}>
+          {shiftRole.name}
         </div>)
     } )
     const dateString = period.date.format('YYYY-MM-DDTHH:mm');
 
-    let newPositionForm = <PositionForm onSubmit={ addPosition } roles={ roles } startDate={ dateString } />
+    let newShiftForm = <ShiftForm onSubmit={ addShift } roles={ roles } startDate={ dateString } />
 
     return(
       <div key={ dateString }>
         <div> { dateString } </div>
-        { positionCells }
-        { newPositionForm }
+        { shiftCells }
+        { newShiftForm }
       </div>
     )
   })

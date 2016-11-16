@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PositionForm = ( { onSubmit, roles, startDate } ) => {
+const ShiftForm = ( { onSubmit, roles, startDate } ) => {
 
   const rolesDropdown = roles.map( role => <option key={ role.id } value={ role.id }>{ role.name }</option> )
 
@@ -16,4 +16,4 @@ const PositionForm = ( { onSubmit, roles, startDate } ) => {
 
 }
 
-export default PositionForm;
+export default ShiftForm;
