@@ -26,9 +26,11 @@ export default function(state = intitalState, action){
       return Object.assign( {}, state, { shifts: newShifts } )
     case "ALTER_START_TIME":
       const alteredTime = moment(state.calendar.startTime).add(action.change, state.calendar.timeUnit).format()
-      console.log("alterest statrt", alteredTime)
       const newCalendar = Object.assign( {}, state.calendar, { startTime: alteredTime })
       return Object.assign( {}, state, { calendar: newCalendar })
+    case "SET_TIME_UNIT":
+      const calendarNewtime = Object.assign( {}, state.calendar, { timeUnit: action.unit })
+      return Object.assign( {}, state, { calendar: calendarNewtime })
     default:
       return state
   }

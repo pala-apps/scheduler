@@ -12,6 +12,13 @@ const actions = {
       type: "ALTER_START_TIME",
       change
     }
+  },
+
+  setTimeUnit: ( unit ) => {
+    return {
+      type: "SET_TIME_UNIT",
+      unit
+    }
   }
 
 }

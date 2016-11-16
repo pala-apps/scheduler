@@ -28,6 +28,10 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
     dispatch( actions.alterStartTime( -1 ) )
   }
 
+  const setTimeUnit = ( unit ) => {
+    return (e) => { dispatch( actions.setTimeUnit( unit ) ) }
+  }
+
   const addShift = ( e ) => {
     e.preventDefault();
     let shift = formSerializer( e.target.children )
@@ -72,7 +76,13 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
 
   return(
     <div>
-      <TimeNav goBack={moveBack} goForward={moveForward}/>
+      <TimeNav
+        showHours={ setTimeUnit("hour") }
+        showDays={ setTimeUnit("day") }
+        showWeeks={ setTimeUnit("week") }
+        goBack={moveBack}
+        goForward={moveForward}
+        />
       <div className="calendar">
         { columns }
       </div>
