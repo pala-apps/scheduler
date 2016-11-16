@@ -1,12 +1,15 @@
 import React from 'react'
 
-const PositionForm = ( {onSubmit} ) => {
+const PositionForm = ( { onSubmit, roles, startDate } ) => {
+
+  const rolesDropdown = roles.map( role => <option key={ role.id } value={ role.id }>{ role.name }</option> )
 
   return(
     <form onSubmit={ onSubmit }>
-      <input name="name" type="text" placeholder="Position..." />
-      <input name="start" type="datetime-local" />
-      <input name="end" type="datetime-local" />
+      <input type="hidden" name="start" value={ startDate } />
+      <select name="roleId">
+        { rolesDropdown }
+      </select>
       <input type="submit" />
     </form>
   )

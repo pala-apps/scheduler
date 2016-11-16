@@ -1,5 +1,5 @@
 export default function formSerializer( formObjectChildren ) {
-  const textInputs = [ "text", "date", "month", "email", "datetime-local" ];
+  const textInputs = [ "text", "date", "month", "email", "datetime-local", "hidden" ];
   const numberInputs = [ "number" ];
   const checkedInputs = [ "checkbox", "radio" ]
 
@@ -10,13 +10,14 @@ export default function formSerializer( formObjectChildren ) {
     const userInput = child.value;
     const isNumberInput = numberInputs.some( type => type === child.type );
     const isCheckedInput = checkedInputs.some( type => type === child.type )
-    const isTextInput = textInputs.some( type => type === child.type )
+    const isTextInput = textInputs.some( type => type === child.type );
+    const isDropDown = child.tagName === "SELECT";
 
     if ( isNumberInput && userInput ) {
       data[ child.name ] = Number( child.value );
     }
 
-    if ( ( ( isCheckedInput ) && child.checked ) || ( isTextInput && userInput ) ) {
+    if ( ( ( isCheckedInput ) && child.checked ) || ( isTextInput && userInput ) || isDropDown ) {
       data[child.name] = child.value
     }
 

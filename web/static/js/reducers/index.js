@@ -10,8 +10,8 @@ const intitalState = {
     {id: 3, roleId: 2, start:"2016-11-14 00:00", end:"2016-11-21 00:00"},
   ],
   roles: [
-    { id: 1, name: "JS Teacher", duration: 4, timeUnit: "week" },
-    { id: 2, name: "JS Assistant", duration: 3, timeUnit: "week" }
+    { id: 1, name: "JS Teacher", duration: 4, timeUnit: "weeks" },
+    { id: 2, name: "JS Assistant", duration: 3, timeUnit: "weeks" }
   ]
 }
 

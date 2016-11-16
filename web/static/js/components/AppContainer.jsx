@@ -9,9 +9,17 @@ import actions from "../actions"
 
 const AppContainer = ( { calendar, positions, roles, dispatch } ) => {
 
+  const findRoleById = (id) => {
+    return roles.find( role => role.id === Number( id ) )
+  }
+
   const addPosition = ( e ) => {
     e.preventDefault();
-    const position = formSerializer( e.target.children )
+    let position = formSerializer( e.target.children )
+    const positionRole = findRoleById( position.roleId )
+    const endDateTime = moment( position.start ).add( positionRole.duration, positionRole.timeUnit ).format()
+    position = Object.assign( {}, position, { end: endDateTime } )
+    console.log( position )
     dispatch( actions.addPosition( position ) )
   }
 
@@ -27,15 +35,15 @@ const AppContainer = ( { calendar, positions, roles, dispatch } ) => {
 
   const columns = periods.map( ( period, index ) =>{
     const positionCells = period.positions.map( ( position ) => {
-      const positionRole = roles.find( role => role.id === position.roleId )
+      const positionRole = findRoleById( position.roleId )
       return (
         <div key={position.id}>
           {positionRole.name}
         </div>)
     } )
-    const dateString = period.date.format('YYYY/MM/DD HH MM');
+    const dateString = period.date.format('YYYY-MM-DDTHH:MM');
 
-    let newPositionForm = <PositionForm onSubmit={ addPosition } />
+    let newPositionForm = <PositionForm onSubmit={ addPosition } roles={ roles } startDate={ dateString } />
 
     return(
       <div key={ dateString }>
