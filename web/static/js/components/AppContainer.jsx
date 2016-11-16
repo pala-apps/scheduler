@@ -76,8 +76,8 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
     let newShiftForm = <ShiftForm onSubmit={ addShift } roles={ roles } startDate={ dateString } />
 
     return(
-      <div key={ dateString }>
-        <div> { viewString } </div>
+      <div key={ dateString } className="calendar-column l-flex-1">
+        <div className="calendar-column-title"> { viewString } </div>
         { shiftCells }
         { newShiftForm }
         <Link to="/role/new">Add new role</Link>
@@ -102,7 +102,7 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
         numberOfUnits={ calendar.numberOfUnits }
         updateDuration = { setCalendarLength }
         />
-      <div className="calendar">
+      <div className="calendar l-flex">
         { columns }
       </div>
       <div>

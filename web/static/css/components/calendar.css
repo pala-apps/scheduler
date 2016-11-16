@@ -1,0 +1,18 @@
+.calendar {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.calendar-column {
+  border-right: 1px solid #e5e5e5;
+}
+
+.calendar-column:last-child {
+  border-right: none;
+}
+
+.calendar-column-title {
+  font-weight: 600;
+  padding: 8px;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: center;
+}

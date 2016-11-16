@@ -1,15 +1,1 @@
-/* This file is for your main application css. */
-.calendar{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
 
-.column{
-  display: flex;
-
-}
-
-.row div{
-  flex: 1;
-}
