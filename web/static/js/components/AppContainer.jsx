@@ -54,33 +54,23 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
 
   const periods = _.range( calendar.numberOfUnits ).map( (unitAfterStart) => {
     const periodStart = startPoint.clone().add( unitAfterStart, calendar.timeUnit )
-    const periodEnd = periodStart.clone().add( 1, calendar.timeUnit )
-
-    const periodShifts = shifts.filter( (shift) => {
-      return shiftInPeriod(shift, periodStart, periodEnd)
-    })
-    return {date: periodStart, shifts: periodShifts}
+    return {date: periodStart}
   })
 
-  const columns = periods.map( ( period, index ) =>{
-    const shiftCells = period.shifts.map( ( shift ) => {
-      const shiftRole = findRoleById( shift.roleId )
-      return (
-        <div key={shift.id}>
-          {shiftRole.name}
-        </div>)
-    } )
+  const headers = periods.map( ( period, index ) =>{
     const dateString = period.date.format('YYYY-MM-DDTHH:mm');
     const viewString = calendar.timeUnit === "hour" ?  period.date.format( 'HH:mm' ) : period.date.format('DD MMM YYYY');
-
-    let newShiftForm = <ShiftForm onSubmit={ addShift } roles={ roles } startDate={ dateString } />
-
     return(
-      <div key={ dateString } className="calendar-column l-flex-1">
-        <div className="calendar-column-title"> { viewString } </div>
-        { shiftCells }
-        { newShiftForm }
-        <Link to="/role/new">Add new role</Link>
+        <div key={ dateString } className="calendar-column l-flex-1">
+          <div className="calendar-column-title"> { viewString } </div>
+         </div>
+    )
+  })
+
+  const rows = shifts.map( ( shift ) => {
+    return (
+      <div>
+        {shift.id}
       </div>
     )
   })
@@ -103,7 +93,10 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
         updateDuration = { setCalendarLength }
         />
       <div className="calendar l-flex">
-        { columns }
+        { headers }
+      </div>
+      <div>
+        { rows }
       </div>
       <div>
         { roleForm }
