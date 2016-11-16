@@ -20,8 +20,12 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
     return roles.find( role => role.id === Number( id ) )
   }
 
-  const shiftTimePeriod = ( e ) => {
-    console.log("shiftingtime period")
+  const moveForward = ( e ) => {
+    dispatch( actions.alterStartTime( 1 ) )
+  }
+
+  const moveBack = ( e ) => {
+    dispatch( actions.alterStartTime( -1 ) )
   }
 
   const addShift = ( e ) => {
@@ -68,7 +72,7 @@ const AppContainer = ( { calendar, shifts, roles, dispatch } ) => {
 
   return(
     <div>
-      <TimeNav goBack={shiftTimePeriod} goForward={shiftTimePeriod}/>
+      <TimeNav goBack={moveBack} goForward={moveForward}/>
       <div className="calendar">
         { columns }
       </div>

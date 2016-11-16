@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const intitalState = {
   calendar: {
     timeUnit: "week",
@@ -15,13 +17,18 @@ const intitalState = {
   ]
 }
 
+
+
 export default function(state = intitalState, action){
-
-
   switch ( action.type ) {
     case "ADD_SHIFT":
       const newShifts = state.shifts.concat( action.shift )
       return Object.assign( {}, state, { shifts: newShifts } )
+    case "ALTER_START_TIME":
+      const alteredTime = moment(state.calendar.startTime).add(action.change, state.calendar.timeUnit).format()
+      console.log("alterest statrt", alteredTime)
+      const newCalendar = Object.assign( {}, state.calendar, { startTime: alteredTime })
+      return Object.assign( {}, state, { calendar: newCalendar })
     default:
       return state
   }
