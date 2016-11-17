@@ -15,7 +15,7 @@ function shiftInPeriod(shift, periodStart, periodEnd){
   return periodStart.isBefore( shift.end ) && periodEnd.isAfter( shift.start )
 }
 
-const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => {
+const AppContainer = ( { calendar, shifts, shiftGroups, roles, isAddingRole, dispatch } ) => {
 
   const findRoleById = (id) => {
     return roles.find( role => role.id === Number( id ) )
@@ -85,7 +85,7 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
     console.log( "role", role )
 
     return (
-      <div>
+      <div className="calendar-row">
         <div className="calendar-row-header">
           { role.name }
         </div>
@@ -97,6 +97,45 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
       </div>
     )
   })
+
+  const shiftGroupsDisplay = shiftGroups.map( ( shiftGroup ) => {
+
+
+    const shifts = shiftGroup.shifts.map( ( shift ) => {
+      const shiftStart =  moment(shift.start)
+      const shiftEnd =  moment(shift.end)
+      const shiftDuration = shiftEnd.diff( shiftStart )
+
+      const shiftOffset = shiftStart.diff( startPoint )
+
+      const widthPercentage = (shiftDuration / totalDuration) * 100
+      const leftPercentage = (shiftOffset / totalDuration) * 100
+
+      // const role = findRoleById( shift.roleId )
+      return (
+        <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
+          {shift.id}
+        </div>
+      )
+
+    })
+
+    return (
+
+      <div className="calendar-row">
+        <div className="calendar-row-header">
+          { shiftGroup.name }
+        </div>
+        <div className="calendar-cells">
+          { shifts }
+        </div>
+      </div>
+    )
+
+
+  })
+
+
 
 
   const roleForm = isAddingRole ? <RoleForm onSubmit={ addRole } /> : null;
@@ -122,9 +161,16 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
         <div className="calendar-cells l-flex">
           { headers }
         </div>
-      </div>
-      <div>
-        { rows }
+
+
+
+        <div>
+          { shiftGroupsDisplay }
+          { rows }
+        </div>
+
+
+
       </div>
       <div>
         { roleForm }

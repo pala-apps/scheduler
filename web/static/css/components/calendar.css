@@ -20,7 +20,7 @@
 .calendar-shift-active {
   display: inline-block;
   background-color: blue;
-  position: relative;
+  position: absolute;
 }
 
 .calendar-cells {
@@ -28,6 +28,10 @@
   z-index: -1;
   width: 90%;
   left: 10%;
+}
+
+.calendar-row {
+  height: 20px;
 }
 
 .calendar-row-header {
