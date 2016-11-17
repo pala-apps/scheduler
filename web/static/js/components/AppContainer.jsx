@@ -74,35 +74,6 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
   })
 
   const totalDuration = endPoint.diff( startPoint )
-  console.log('totalDurations', totalDuration)
-
-  // const rows = shifts.map( ( shift ) => {
-  //   const shiftStart =  moment(shift.start)
-  //   const shiftEnd =  moment(shift.end)
-  //   const shiftDuration = shiftEnd.diff( shiftStart )
-  //
-  //   const shiftOffset = shiftStart.diff( startPoint )
-  //
-  //   const widthPercentage = (shiftDuration / totalDuration) * 100
-  //   const leftPercentage = (shiftOffset / totalDuration) * 100
-  //
-  //   const role = findRoleById( shift.roleId )
-  //
-  //   console.log( "role", role )
-  //
-  //   return (
-  //     <div className="calendar-row">
-  //       <div className="calendar-row-header">
-  //         { role.name }
-  //       </div>
-  //       <div className="calendar-cells">
-  //         <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
-  //           {shift.id}
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // })
 
   const rowGroups = teams.map( (team)=>{
     const rows = team.positions.map( ( position ) => {
@@ -116,10 +87,21 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
         const widthPercentage = (shiftDuration / totalDuration) * 100
         const leftPercentage = (shiftOffset / totalDuration) * 100
 
-        // const role = findRoleById( shift.roleId )
         return (
           <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
             {shift.id}
+          </div>
+        )
+      })
+
+      const shiftCells = periods.map( ( period ) => {
+        console.log( period, "period" );
+        return(
+          <div style={ { width: `${ 100 / calendar.numberOfUnits }%` }}>
+            <form onSubmit={ (e) => { console.log( "form hit" ) } } className="calendar-column">
+              <input type="hidden" name="date" value={ period.date.format() } />
+              <input type="text" name="name" />
+            </form>
           </div>
         )
       })
@@ -129,8 +111,9 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
           <div className="calendar-row-header">
             { position.name }
           </div>
-          <div className="calendar-cells">
-            { shifts }
+          <div className="calendar-cells l-flex">
+            { shiftCells }
+            {/*{ shifts }*/}
           </div>
         </div>
       )
@@ -174,7 +157,6 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
           { rowGroups }
           <form onSubmit={ addPosition }>
             <input type="text" name="name" />
-            <input type="submit" />
           </form>
         </div>
 

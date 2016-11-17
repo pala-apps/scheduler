@@ -10,7 +10,12 @@ const newInitialState = Immutable.fromJS({
   teams:[
       {
         name: "Misc.",
-        positions: []
+        positions: [
+          {
+            name: "A Position",
+            shifts: []
+          }
+        ]
       }
     // { name: "Cohort 9",
     //   positions: [

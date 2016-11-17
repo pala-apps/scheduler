@@ -4,3 +4,7 @@ body {
   margin: 0px;
   font-family: 'Raleway', sans-serif;
 }
+
+input[type="text"] {
+  box-sizing: border-box;
+}

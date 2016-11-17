@@ -3,6 +3,7 @@
 }
 
 .calendar-column {
+  box-sizing: border-box;
   border-right: 1px solid #e5e5e5;
 }
 
@@ -25,7 +26,6 @@
 
 .calendar-cells {
   position: relative;
-  z-index: -1;
   width: 90%;
   left: 10%;
 }
