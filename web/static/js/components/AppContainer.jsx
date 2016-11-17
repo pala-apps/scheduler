@@ -49,6 +49,12 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
     dispatch( actions.addShift( shift ) )
   }
 
+  const addPosition = (e) => {
+    e.preventDefault();
+    let position = formSerializer( e.target.children )
+    dispatch( actions.addPosition( position ) )
+  }
+
   const startPoint = moment( calendar.startTime )
   const endPoint = startPoint.clone().add( calendar.numberOfUnits, calendar.timeUnit )
 
@@ -166,6 +172,10 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
 
         <div>
           { rowGroups }
+          <form onSubmit={ addPosition }>
+            <input type="text" name="name" />
+            <input type="submit" />
+          </form>
         </div>
 
 
@@ -179,9 +189,9 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
 }
 
 const mapStateToProps = (state, {params, location})=>{
-  console.log( state, "state" )
+  console.log( state.toJS(), "state" )
   const isAddingRole = location.pathname === "/role/new"
-  return Object.assign( {}, state, { isAddingRole } )
+  return Object.assign( {}, state.toJS(), { isAddingRole } )
 }
 
 export default connect( mapStateToProps )( AppContainer )

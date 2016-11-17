@@ -14,6 +14,14 @@ const actions = {
     }
   },
 
+  addPosition: ( position ) => {
+
+    return {
+      type: "ADD_POSITION",
+      position
+    }
+  },
+
   alterStartTime: ( change ) => {
     return {
       type: "ALTER_START_TIME",

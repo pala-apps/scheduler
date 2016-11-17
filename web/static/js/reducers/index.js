@@ -1,84 +1,89 @@
 import moment from 'moment'
+import Immutable from "immutable"
 
-const newInitialState = {
+const newInitialState = Immutable.fromJS({
   calendar: {
     timeUnit: "week",
     startTime: "2016-11-07T00:00",
     numberOfUnits: 21
   },
   teams:[
-    { name: "Cohort 9",
-      positions: [
-        { name:"Instructor 1",
-          shifts: [
-            {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
-            {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
-            {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
-            {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
-          ]
-        },
-        { name:"Instructor 2",
-          shifts: [
-            {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
-            {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
-            {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
-            {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
-          ]
-        },
-        {
-          name: "TA 1",
-          shifts: [
-            {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
-          ]
-        },
-        {
-          name: "TA 2",
-          shifts: [
-            {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
-          ]
-        }
-      ]
-    },
-    { name: "Cohort 10",
-      positions: [
-        { name:"Instructor 1",
-          shifts: [
-            {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
-            {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
-            {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
-            {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
-          ]
-        },
-        { name:"Instructor 2",
-          shifts: [
-            {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
-            {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
-            {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
-            {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
-          ]
-        },
-        {
-          name: "TA 1",
-          shifts: [
-            {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
-          ]
-        },
-        {
-          name: "TA 2",
-          shifts: [
-            {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
-            {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
-          ]
-        }
-      ]
-    }
+      {
+        name: "Misc.",
+        positions: []
+      }
+    // { name: "Cohort 9",
+    //   positions: [
+    //     { name:"Instructor 1",
+    //       shifts: [
+    //         {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
+    //         {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
+    //         {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
+    //         {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     },
+    //     { name:"Instructor 2",
+    //       shifts: [
+    //         {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
+    //         {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
+    //         {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
+    //         {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     },
+    //     {
+    //       name: "TA 1",
+    //       shifts: [
+    //         {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     },
+    //     {
+    //       name: "TA 2",
+    //       shifts: [
+    //         {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     }
+    //   ]
+    // },
+    // { name: "Cohort 10",
+    //   positions: [
+    //     { name:"Instructor 1",
+    //       shifts: [
+    //         {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
+    //         {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
+    //         {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
+    //         {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     },
+    //     { name:"Instructor 2",
+    //       shifts: [
+    //         {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
+    //         {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
+    //         {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
+    //         {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     },
+    //     {
+    //       name: "TA 1",
+    //       shifts: [
+    //         {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     },
+    //     {
+    //       name: "TA 2",
+    //       shifts: [
+    //         {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+    //         {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
+    //       ]
+    //     }
+    //   ]
+    // }
   ],
   roles: [
     { id: 1, name: "Ruby Instructor", duration: 5, timeUnit: "week" },
@@ -89,7 +94,7 @@ const newInitialState = {
     { id: 6, name: "JS Instructor", duration: 4, timeUnit: "week" },
     { id: 7, name: "Web Framework Instructor", duration: 3, timeUnit: "week" },
   ]
-}
+})
 
 const intitalState = {
   calendar: {
@@ -161,12 +166,16 @@ const intitalState = {
 
 export default function(state = newInitialState, action){
   switch ( action.type ) {
-    case "ADD_ROLE":
-      const newRoles = state.roles.concat( action.role );
-      return Object.assign( {}, state, { roles: newRoles } )
-    case "ADD_SHIFT":
-      const newShifts = state.shifts.concat( action.shift )
-      return Object.assign( {}, state, { shifts: newShifts } )
+    // case "ADD_ROLE":
+    //   const newRoles = state.roles.concat( action.role );
+    //   return Object.assign( {}, state, { roles: newRoles } )
+    // case "ADD_SHIFT":
+    //   const newShifts = state.shifts.concat( action.shift )
+    //   return Object.assign( {}, state, { shifts: newShifts } )
+    case "ADD_POSITION":
+      let position = Immutable.fromJS(action.position)
+      return state.updateIn( [ 'teams', 0, 'positions' ], list => list.push( position.set( "shifts", [] ) ) )
+      // return state.setIn( [ 'teams', 'positions' ], action.position )
     case "ALTER_START_TIME":
       const alteredTime = moment(state.calendar.startTime).add(action.change, state.calendar.timeUnit).format()
       const newCalendar = Object.assign( {}, state.calendar, { startTime: alteredTime })
