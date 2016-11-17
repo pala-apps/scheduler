@@ -7,12 +7,6 @@ const actions = {
     }
   },
 
-  addRole: ( role ) => {
-    return {
-      type: "ADD_ROLE",
-      role
-    }
-  },
 
   addPosition: ( position ) => {
 
