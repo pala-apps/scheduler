@@ -158,7 +158,7 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
         />
       <div className="calendar">
         <div className="calendar-column-title calendar-row-header">
-          Roles
+          Positions
         </div>
         <div className="calendar-cells l-flex">
           { headers }

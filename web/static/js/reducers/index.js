@@ -3,7 +3,7 @@ import moment from 'moment'
 const newInitialState = {
   calendar: {
     timeUnit: "week",
-    startTime: "2016-11-12T00:00",
+    startTime: "2016-11-07T00:00",
     numberOfUnits: 21
   },
   teams:[
@@ -43,6 +43,42 @@ const newInitialState = {
         }
       ]
     },
+    { name: "Cohort 10",
+      positions: [
+        { name:"Instructor 1",
+          shifts: [
+            {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+            {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
+            {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
+            {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
+            {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
+          ]
+        },
+        { name:"Instructor 2",
+          shifts: [
+            {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+            {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"},
+            {id: 9, roleId: 5, start:"2017-01-30T00:00", end:"2017-02-04T00:00"},
+            {id: 10, roleId: 6, start:"2017-02-06T00:00", end:"2017-03-03T00:00"},
+            {id: 11, roleId: 7, start:"2017-03-06T00:00", end:"2017-03-24T00:00"}
+          ]
+        },
+        {
+          name: "TA 1",
+          shifts: [
+            {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+            {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
+          ]
+        },
+        {
+          name: "TA 2",
+          shifts: [
+            {id: 3, roleId: 2, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+            {id: 7, roleId: 3, start:"2017-01-09T00:00", end:"2017-03-24T00:00"}
+          ]
+        }
+      ]
+    }
   ],
   roles: [
     { id: 1, name: "Ruby Instructor", duration: 5, timeUnit: "week" },
