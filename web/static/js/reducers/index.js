@@ -175,11 +175,10 @@ export default function(state = newInitialState, action){
     case "ADD_POSITION":
       let position = Immutable.fromJS(action.position)
       return state.updateIn( [ 'teams', 0, 'positions' ], list => list.push( position.set( "shifts", [] ) ) )
-      // return state.setIn( [ 'teams', 'positions' ], action.position )
     case "ALTER_START_TIME":
-      const alteredTime = moment(state.calendar.startTime).add(action.change, state.calendar.timeUnit).format()
-      const newCalendar = Object.assign( {}, state.calendar, { startTime: alteredTime })
-      return Object.assign( {}, state, { calendar: newCalendar })
+      return state.updateIn( ['calendar', 'startTime'], (oldTime) =>{
+        return moment( oldTime ).add( action.change, state.getIn( ["calendar", "timeUnit"] ) ).format()
+      })
     case "SET_TIME_UNIT":
       const momentUnit = action.unit === "week" ? "isoweek" : action.unit  // using just week moment start week on Sunday
       const roundedTime = moment(state.calendar.startTime).startOf(momentUnit).format()
