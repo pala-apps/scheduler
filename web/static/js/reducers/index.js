@@ -180,10 +180,11 @@ export default function(state = newInitialState, action){
         return moment( oldTime ).add( action.change, state.getIn( ["calendar", "timeUnit"] ) ).format()
       })
     case "SET_TIME_UNIT":
-      const momentUnit = action.unit === "week" ? "isoweek" : action.unit  // using just week moment start week on Sunday
-      const roundedTime = moment(state.calendar.startTime).startOf(momentUnit).format()
-      const calendarNewtime = Object.assign( {}, state.calendar, { timeUnit: action.unit, startTime: roundedTime })
-      return Object.assign( {}, state, { calendar: calendarNewtime })
+      return state.update( "calendar", (calendar) =>{
+        const momentUnit = action.unit === "week" ? "isoweek" : action.unit  // using just week moment start week on Sunday
+        const roundedTime = moment( calendar.get("startTime") ).startOf(momentUnit).format()
+        return calendar.merge( { timeUnit: action.unit, startTime: roundedTime })
+      })
     case "SET_NUMBER_OF_CALENDAR_UNITS":
       return state.setIn(["calendar", "numberOfUnits"], action.length )
     default:
