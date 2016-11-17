@@ -43,9 +43,9 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
   const addShift = ( e ) => {
     e.preventDefault();
     let shift = formSerializer( e.target.children )
-    const shiftRole = findRoleById( shift.roleId )
-    const endDateTime = moment( shift.start ).add( shiftRole.duration, shiftRole.timeUnit ).format()
+    const endDateTime = moment( shift.start ).add( 2, 'week' ).format()
     shift = Object.assign( {}, shift, { end: endDateTime } )
+    console.log( "shift", shift )
     dispatch( actions.addShift( shift ) )
   }
 
@@ -75,8 +75,8 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
 
   const totalDuration = endPoint.diff( startPoint )
 
-  const rowGroups = teams.map( (team)=>{
-    const rows = team.positions.map( ( position ) => {
+  const rowGroups = teams.map( (team, teamIndex)=>{
+    const rows = team.positions.map( ( position, positionIndex ) => {
       const shifts = position.shifts.map( ( shift ) => {
         const shiftStart =  moment(shift.start)
         const shiftEnd =  moment(shift.end)
@@ -95,12 +95,12 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
       })
 
       const shiftCells = periods.map( ( period ) => {
-        console.log( period, "period" );
         return(
           <div style={ { width: `${ 100 / calendar.numberOfUnits }%` }}>
-            <form onSubmit={ (e) => { console.log( "form hit" ) } } className="calendar-column">
-              <input type="hidden" name="date" value={ period.date.format() } />
-              <input type="text" name="name" />
+            <form onSubmit={ addShift } className="calendar-column">
+              <input type="hidden" name="index" value={ positionIndex } />
+              <input type="hidden" name="start" value={ period.date.format() } />
+              <input type="text" name="id" />
             </form>
           </div>
         )
@@ -113,7 +113,7 @@ const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
           </div>
           <div className="calendar-cells l-flex">
             { shiftCells }
-            {/*{ shifts }*/}
+            { shifts }
           </div>
         </div>
       )
