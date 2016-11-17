@@ -185,8 +185,7 @@ export default function(state = newInitialState, action){
       const calendarNewtime = Object.assign( {}, state.calendar, { timeUnit: action.unit, startTime: roundedTime })
       return Object.assign( {}, state, { calendar: calendarNewtime })
     case "SET_NUMBER_OF_CALENDAR_UNITS":
-      const calendarWithNewLength= Object.assign( {}, state.calendar, { numberOfUnits: action.length })
-      return Object.assign( {}, state, { calendar: calendarWithNewLength })
+      return state.setIn(["calendar", "numberOfUnits"], action.length )
     default:
       return state
   }
