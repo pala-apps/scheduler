@@ -80,14 +80,19 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
     const widthPercentage = (shiftDuration / totalDuration) * 100
     const leftPercentage = (shiftOffset / totalDuration) * 100
 
-    console.log("width percentage", widthPercentage)
-    console.log("leftPercentage", leftPercentage)
+    const role = findRoleById( shift.roleId )
 
+    console.log( "role", role )
 
     return (
       <div>
-        <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
-          {shift.id}
+        <div className="calendar-row-header">
+          { role.name }
+        </div>
+        <div className="calendar-cells">
+          <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
+            {shift.id}
+          </div>
         </div>
       </div>
     )
@@ -110,8 +115,13 @@ const AppContainer = ( { calendar, shifts, roles, isAddingRole, dispatch } ) => 
         numberOfUnits={ calendar.numberOfUnits }
         updateDuration = { setCalendarLength }
         />
-      <div className="calendar l-flex">
-        { headers }
+      <div className="calendar">
+        <div className="calendar-column-title calendar-row-header">
+          Roles
+        </div>
+        <div className="calendar-cells l-flex">
+          { headers }
+        </div>
       </div>
       <div>
         { rows }
