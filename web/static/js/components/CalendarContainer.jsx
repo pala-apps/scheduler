@@ -4,6 +4,8 @@ import actions from "../actions"
 import moment from 'moment'
 import {_} from 'lodash'
 import CalendarRowView from './CalendarRowView'
+import CalendarHeaderRowView from './CalendarHeaderRowView'
+
 import formSerializer from "../libs/formSerializer"
 
 const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
@@ -22,7 +24,6 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
     dispatch( actions.addPosition( position ) )
   }
 
-
   const startPoint = moment( calendar.startTime )
   const endPoint = startPoint.clone().add( calendar.numberOfUnits, calendar.timeUnit )
 
@@ -31,15 +32,6 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
     return {date: periodStart}
   })
 
-  const headers = periods.map( ( period, index ) =>{
-    const dateString = period.date.format('YYYY-MM-DDTHH:mm');
-    const viewString = calendar.timeUnit === "hour" ?  period.date.format( 'HH:mm' ) : period.date.format('DD MMM YYYY');
-    return(
-        <div key={ dateString } className="calendar-column l-flex-1">
-          <div className="calendar-column-title"> { viewString } </div>
-         </div>
-    )
-  })
 
   const totalDuration = endPoint.diff( startPoint )
 
@@ -58,7 +50,6 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
     )
     })
 
-
     return(
       <div className="calendar-row-group">
         { team.name }
@@ -69,13 +60,7 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
 
   return (
     <div className="calendar">
-      <div className="calendar-column-title calendar-row-header">
-        Positions
-      </div>
-      <div className="calendar-cells l-flex">
-        { headers }
-      </div>
-
+      <CalendarHeaderRowView periods={periods} timeUnit={calendar.timeUnit}/>
       <div>
         { rowGroups }
         <form onSubmit={ addPosition }>
