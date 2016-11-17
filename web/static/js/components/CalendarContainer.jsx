@@ -47,6 +47,7 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
     const rows = team.positions.map( ( position, positionIndex ) => {
       return(
         <CalendarRowView
+          key={ positionIndex }
           position={position}
           positionIndex={positionIndex}
           startPoint={ startPoint }
@@ -60,7 +61,7 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
 
 
     return(
-      <div className="calendar-row-group">
+      <div key={ teamIndex } className="calendar-row-group">
         { team.name }
         {rows}
       </div>
