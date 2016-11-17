@@ -19,6 +19,18 @@ const initialState = Immutable.fromJS({
             ]
           }
         ]
+      },
+      {
+        name: "Second.",
+        positions: [
+          {
+            name: "A Position",
+            shifts: [
+              {id: 1, roleId: 1, start:"2016-11-21T00:00", end:"2016-12-24T00:00"},
+              {id: 5, roleId: 4, start:"2017-01-09T00:00", end:"2017-01-27T00:00"}
+            ]
+          }
+        ]
       }
     // { name: "Cohort 9",
     //   positions: [
@@ -111,7 +123,7 @@ export default function(state = initialState, action){
       return state.updateIn( [ 'teams', 0, 'positions', action.shift.index, 'shifts' ], list => list.push( shift ) )
     case "ADD_POSITION":
       const position = Immutable.fromJS(action.position)
-      return state.updateIn( [ 'teams', 0, 'positions' ], list => list.push( position.set( "shifts", Immutable.List() ) ) )
+      return state.updateIn( [ 'teams', action.position.index, 'positions' ], list => list.push( position.set( "shifts", Immutable.List() ) ) )
     case "ALTER_START_TIME":
       return state.updateIn( ['calendar', 'startTime'], (oldTime) =>{
         return moment( oldTime ).add( action.change, state.getIn( ["calendar", "timeUnit"] ) ).format()

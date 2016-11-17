@@ -9,7 +9,6 @@ const actions = {
 
 
   addPosition: ( position ) => {
-
     return {
       type: "ADD_POSITION",
       position

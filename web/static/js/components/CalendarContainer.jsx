@@ -21,6 +21,7 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
   const addPosition = (e) => {
     e.preventDefault();
     let position = formSerializer( e.target.children )
+    console.log('position', position)
     dispatch( actions.addPosition( position ) )
   }
 
@@ -38,16 +39,18 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
   const rowGroups = teams.map( (team, teamIndex)=>{
     const rows = team.positions.map( ( position, positionIndex ) => {
       return(
-        <CalendarRowView
-          key={ positionIndex }
-          position={position}
-          positionIndex={positionIndex}
-          startPoint={ startPoint }
-          totalDuration= {totalDuration}
-          periods= {periods}
-          numberOfUnits={ calendar.numberOfUnits}
-          addShift={ addShift }
-        />
+        <div>
+          <CalendarRowView
+            key={ positionIndex }
+            position={position}
+            positionIndex={positionIndex}
+            startPoint={ startPoint }
+            totalDuration= {totalDuration}
+            periods= {periods}
+            numberOfUnits={ calendar.numberOfUnits}
+            addShift={ addShift }
+          />
+        </div>
     )
     })
 
@@ -55,6 +58,10 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
       <div key={ teamIndex } className="calendar-row-group">
         { team.name }
         {rows}
+        <form onSubmit={ addPosition }>
+          <input type="hidden" name="index" value={ teamIndex } />
+          <input type="text" name="name" />
+        </form>
       </div>
     )
   })
@@ -64,9 +71,7 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
       <CalendarHeaderRowView periods={periods} timeUnit={calendar.timeUnit}/>
       <div>
         { rowGroups }
-        <form onSubmit={ addPosition }>
-          <input type="text" name="name" />
-        </form>
+
       </div>
     </div>
   )
