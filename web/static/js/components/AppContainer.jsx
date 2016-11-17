@@ -15,7 +15,7 @@ function shiftInPeriod(shift, periodStart, periodEnd){
   return periodStart.isBefore( shift.end ) && periodEnd.isAfter( shift.start )
 }
 
-const AppContainer = ( { calendar, shifts, shiftGroups, roles, isAddingRole, dispatch } ) => {
+const AppContainer = ( { calendar, teams, roles, isAddingRole, dispatch } ) => {
 
   const findRoleById = (id) => {
     return roles.find( role => role.id === Number( id ) )
@@ -70,72 +70,74 @@ const AppContainer = ( { calendar, shifts, shiftGroups, roles, isAddingRole, dis
   const totalDuration = endPoint.diff( startPoint )
   console.log('totalDurations', totalDuration)
 
-  const rows = shifts.map( ( shift ) => {
-    const shiftStart =  moment(shift.start)
-    const shiftEnd =  moment(shift.end)
-    const shiftDuration = shiftEnd.diff( shiftStart )
+  // const rows = shifts.map( ( shift ) => {
+  //   const shiftStart =  moment(shift.start)
+  //   const shiftEnd =  moment(shift.end)
+  //   const shiftDuration = shiftEnd.diff( shiftStart )
+  //
+  //   const shiftOffset = shiftStart.diff( startPoint )
+  //
+  //   const widthPercentage = (shiftDuration / totalDuration) * 100
+  //   const leftPercentage = (shiftOffset / totalDuration) * 100
+  //
+  //   const role = findRoleById( shift.roleId )
+  //
+  //   console.log( "role", role )
+  //
+  //   return (
+  //     <div className="calendar-row">
+  //       <div className="calendar-row-header">
+  //         { role.name }
+  //       </div>
+  //       <div className="calendar-cells">
+  //         <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
+  //           {shift.id}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // })
 
-    const shiftOffset = shiftStart.diff( startPoint )
+  const rowGroups = teams.map( (team)=>{
+    const rows = team.positions.map( ( position ) => {
+      const shifts = position.shifts.map( ( shift ) => {
+        const shiftStart =  moment(shift.start)
+        const shiftEnd =  moment(shift.end)
+        const shiftDuration = shiftEnd.diff( shiftStart )
 
-    const widthPercentage = (shiftDuration / totalDuration) * 100
-    const leftPercentage = (shiftOffset / totalDuration) * 100
+        const shiftOffset = shiftStart.diff( startPoint )
 
-    const role = findRoleById( shift.roleId )
+        const widthPercentage = (shiftDuration / totalDuration) * 100
+        const leftPercentage = (shiftOffset / totalDuration) * 100
 
-    console.log( "role", role )
-
-    return (
-      <div className="calendar-row">
-        <div className="calendar-row-header">
-          { role.name }
-        </div>
-        <div className="calendar-cells">
+        // const role = findRoleById( shift.roleId )
+        return (
           <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
             {shift.id}
           </div>
-        </div>
-      </div>
-    )
-  })
+        )
+      })
 
-  const shiftGroupsDisplay = shiftGroups.map( ( shiftGroup ) => {
-
-
-    const shifts = shiftGroup.shifts.map( ( shift ) => {
-      const shiftStart =  moment(shift.start)
-      const shiftEnd =  moment(shift.end)
-      const shiftDuration = shiftEnd.diff( shiftStart )
-
-      const shiftOffset = shiftStart.diff( startPoint )
-
-      const widthPercentage = (shiftDuration / totalDuration) * 100
-      const leftPercentage = (shiftOffset / totalDuration) * 100
-
-      // const role = findRoleById( shift.roleId )
       return (
-        <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
-          {shift.id}
+        <div className="calendar-row">
+          <div className="calendar-row-header">
+            { position.name }
+          </div>
+          <div className="calendar-cells">
+            { shifts }
+          </div>
         </div>
       )
-
     })
 
-    return (
 
-      <div className="calendar-row">
-        <div className="calendar-row-header">
-          { shiftGroup.name }
-        </div>
-        <div className="calendar-cells">
-          { shifts }
-        </div>
+    return(
+      <div className="calendar-row-group">
+        { team.name }
+        {rows}
       </div>
     )
-
-
   })
-
-
 
 
   const roleForm = isAddingRole ? <RoleForm onSubmit={ addRole } /> : null;
@@ -162,13 +164,9 @@ const AppContainer = ( { calendar, shifts, shiftGroups, roles, isAddingRole, dis
           { headers }
         </div>
 
-
-
         <div>
-          { shiftGroupsDisplay }
-          { rows }
+          { rowGroups }
         </div>
-
 
 
       </div>
