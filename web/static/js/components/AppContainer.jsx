@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import moment from 'moment'
 import {_} from 'lodash'
-import formSerializer from "../libs/formSerializer"
+
 import actions from "../actions"
 import CalendarNav from './CalendarNav'
 import CalendarContainer from './CalendarContainer'

@@ -1,17 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import formSerializer from "../libs/formSerializer"
 import actions from "../actions"
 import moment from 'moment'
 import {_} from 'lodash'
+import CalendarRowView from './CalendarRowView'
+import formSerializer from "../libs/formSerializer"
 
 const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
-  
-  const addPosition = (e) => {
-    e.preventDefault();
-    let position = formSerializer( e.target.children )
-    dispatch( actions.addPosition( position ) )
-  }
 
   const addShift = ( e ) => {
     e.preventDefault();
@@ -20,6 +15,13 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
     shift = Object.assign( {}, shift, { end: endDateTime } )
     dispatch( actions.addShift( shift ) )
   }
+
+  const addPosition = (e) => {
+    e.preventDefault();
+    let position = formSerializer( e.target.children )
+    dispatch( actions.addPosition( position ) )
+  }
+
 
   const startPoint = moment( calendar.startTime )
   const endPoint = startPoint.clone().add( calendar.numberOfUnits, calendar.timeUnit )
@@ -43,46 +45,17 @@ const CalendarContainer = ( {calendar, teams, roles, dispatch} ) => {
 
   const rowGroups = teams.map( (team, teamIndex)=>{
     const rows = team.positions.map( ( position, positionIndex ) => {
-      const shifts = position.shifts.map( ( shift ) => {
-        const shiftStart =  moment(shift.start)
-        const shiftEnd =  moment(shift.end)
-        const shiftDuration = shiftEnd.diff( shiftStart )
-
-        const shiftOffset = shiftStart.diff( startPoint )
-
-        const widthPercentage = (shiftDuration / totalDuration) * 100
-        const leftPercentage = (shiftOffset / totalDuration) * 100
-
-        return (
-          <div className="calendar-shift-active" style={ {left:`${leftPercentage}%`, width: `${widthPercentage}%`} }>
-            {shift.id}
-          </div>
-        )
-      })
-
-      const shiftCells = periods.map( ( period ) => {
-        return(
-          <div style={ { width: `${ 100 / calendar.numberOfUnits }%` }}>
-            <form onSubmit={ addShift } className="calendar-column">
-              <input type="hidden" name="index" value={ positionIndex } />
-              <input type="hidden" name="start" value={ period.date.format() } />
-              <input type="text" name="id" />
-            </form>
-          </div>
-        )
-      })
-
-      return (
-        <div className="calendar-row">
-          <div className="calendar-row-header">
-            { position.name }
-          </div>
-          <div className="calendar-cells l-flex">
-            { shiftCells }
-            { shifts }
-          </div>
-        </div>
-      )
+      return(
+        <CalendarRowView
+          position={position}
+          positionIndex={positionIndex}
+          startPoint={ startPoint }
+          totalDuration= {totalDuration}
+          periods= {periods}
+          numberOfUnits={ calendar.numberOfUnits}
+          addShift={ addShift }
+        />
+    )
     })
 
 
